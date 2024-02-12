@@ -1,12 +1,17 @@
 "use client";
-import { Playfair_Display } from "next/font/google";
-import { useRef, useEffect, useState } from "react"
-import { motion, useScroll, AnimatePresence } from "framer-motion"
+import WordList from "./wordlist"
+import Projects from "./projects"
+import { Playfair_Display } from "next/font/google"
+import { useState, Fragment } from "react"
+import { motion } from "framer-motion"
 import { MdOutlineKeyboardArrowDown } from "react-icons/md"
-import { SiLinkedin, SiGithub, SiFramer, SiRust, SiTailwindcss, SiPostgresql, SiTypescript, SiGit, SiDocker, SiNextdotjs, SiSupabase, SiVuedotjs } from "react-icons/si";
-import i18n, { changeLanguage } from 'i18next';
-import { initReactI18next, useTranslation } from 'react-i18next';
-import Link from "next/link";
+import { SiLinkedin, SiGithub, SiFramer, SiRust, SiTailwindcss, SiPostgresql, SiTypescript, SiGit, SiDocker, SiNextdotjs, SiSupabase, SiVuedotjs } from "react-icons/si"
+import { IoMdArrowDropdown } from "react-icons/io";
+import i18n, { changeLanguage } from 'i18next'
+import { initReactI18next, useTranslation } from 'react-i18next'
+import { Listbox, Transition } from '@headlessui/react'
+import Link from "next/link"
+import data from "./projects.json"
 
 export const cormorant = Playfair_Display({
   subsets: ['latin'],
@@ -22,44 +27,36 @@ i18n
       },
       cs: {
         translation: require('../../public/locales/cs.json')
+      },
+      de: {
+        translation: require('../../public/locales/de.json')
       }
     },
     ns: ['translation'],
     defaultNS: 'translation',
   });
-
+  
+const language = [
+  { lang: 'English' },
+  { lang: 'Čeština' },
+  { lang: 'Deutsch' },
+]
 
 export default function Home() {
   const { t } = useTranslation();
-  const aboutText = t('aboutText');
-  const words = aboutText.split(" ");
+  const [selected, setSelected] = useState(language[1])
 
-  const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: sectionRef });
-
-  const [revealedWords, setRevealedWords] = useState(Array(words.length).fill(false));
-  const [lang, setLang] = useState<"Czech" | "English">("Czech");
-
-  const spanVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-  };
-
-  useEffect(() => {
-    const unsubscribe = scrollYProgress.onChange((value) => {
-      const newRevealedWords = words.map((_, i) => value >= i / words.length + Number.EPSILON);
-      setRevealedWords(newRevealedWords);
-    });
-
-
-    return () => {
-      unsubscribe();
-    };
-  }, [scrollYProgress, words]);
-
-  useEffect(() => {
-    changeLanguage(lang == "Czech" ? 'cs' : 'en')
-  }, [lang])
+  function handleSelect(selected: { lang: string }) {
+    if(selected.lang === 'English') {
+      changeLanguage('en');
+    } else if(selected.lang === 'Čeština') {
+      changeLanguage('cs'); 
+    }else {
+      changeLanguage('de');
+    }
+    setSelected(selected);
+  }  
+ 
   return (
     <div>
       <main className='bg-black h-screen w-screen text-2xl flex justify-center'>
@@ -67,12 +64,46 @@ export default function Home() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ ease: "easeOut", duration: 1, delay: 0.5 }}
-        onClick={() => setLang(lang == "Czech" ? "English" : "Czech")} 
-        className='px-5 py-3 text-2xl cursor-pointer z-50 hover:[text-shadow:0px_0px_4px_var(--tw-shadow-color)] shadow-white fixed p-5 top-0 right-0'
+        className='px-5 py-3 text-2xl cursor-pointer z-50 hover:[text-shadow:0px_0px_4px_var(--tw-shadow-color)] shadow-white text-white fixed p-5 top-0 right-32'
         >
-        {lang === "English" ? "🇨🇿" : "🇬🇧"}
+          <div className="fixed w-32">
+            <Listbox value={selected} onChange={handleSelect}>
+              <div className="relative mt-1">
+                <Listbox.Button className="relative w-full cursor-default rounded-lg bg-black py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                  <span className="block truncate">{selected.lang}</span>
+                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                    <IoMdArrowDropdown
+                      className="h-5 w-5 text-white"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </Listbox.Button>
+                <Transition
+                  as={Fragment}
+                  leave="transition ease-in duration-100"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-black py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                    {language.map((language, languageIdx) => (
+                      <Listbox.Option
+                        key={languageIdx}
+                        className={({ active }) =>
+                          `relative cursor-default select-none py-2 pl-3 pr-4 ${
+                            active ? 'bg-white text-black' : 'text-white'
+                          }`
+                        }
+                        value={language}
+                      >
+                        {language.lang}
+                      </Listbox.Option>
+                    ))}
+                  </Listbox.Options>
+                </Transition>
+              </div>
+            </Listbox>
+          </div>
         </motion.div>
-
         <div className='flex justify-center items-center absolute w-screen h-screen overflow-x-hidden'>
           <div className='absolute h-[380px] xs:h-[500px] md:h-[700px] w-[380px] xs:w-[500px] md:w-[700px] flex justify-center items-center flex-col text-[5rem] md:text-[9rem] xs:text-[7rem]'>
             <motion.span
@@ -138,174 +169,8 @@ export default function Home() {
           </motion.div>
         </motion.div>
       </main>
-      <section className="h-[300vh]" id="intro" ref={sectionRef}>
-        <div className="h-screen sticky top-0">
-          <AnimatePresence>
-            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex h-full items-center justify-center transition-all">
-              <motion.p
-                className="absolute mx-auto max-w-4xl text-center text-[6vw] bg-clip-text bg-gradient-to-b from-white to-white/20 sm:text-4xl"
-              >
-                {words.map((word, i) => (
-                  <motion.span
-                    key={i}
-                    className="m-[0.35rem] sm:m-3 inline-block"
-                    variants={spanVariants}
-                    initial="hidden"
-                    animate={revealedWords[i] ? "visible" : "hidden"}
-                  >
-                    {word}
-                  </motion.span>
-                ))}
-              </motion.p>
-            </div>
-          </AnimatePresence>
-        </div>
-      </section>
-      <main className='w-screen bg-black flex items-center flex-col text-center xl:text-left'>
-        <div className="text-[3rem] p-1 xs:p-12 block w-full lg:w-2/3">
-          {t('myProjects')}
-        </div>
-        <div className="flex justify-center items-center flex-wrap w-full lg:w-10/12">
-          <div className="w-full xs:w-[30rem] bg-gradient-to-bl from-neutral-900 to-neutral-950 border-neutral-700 border-[1.5px] rounded-xl p-2 xs:p-3 m-3 flex flex-col justify-start items-center">
-          <div className="h-[14rem] w-full rounded-xl bg-cover bg-no-repeat bg-left" 
-            style={{backgroundImage: 'url("/project_doucovani.png")'}}
-          />            
-            <div className="p-2 text-xl">
-              Douc.info
-            </div>
-            <div className="p-1 text-center text-neutral-400 sm:h-20">
-              {t("doucovaniDesc")}
-            </div>
-            <div className="py-2 flex gap-2 flex-wrap items-center justify-center">
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiNextdotjs className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Next.js</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiTypescript className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Typescript</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiTailwindcss className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">TailwindCSS</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiPostgresql className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Postgres</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiSupabase className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Supabase</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiGit className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Git</h1>
-              </span>
-            </div>
-          </div>
-          <div className="w-[30rem] bg-gradient-to-bl from-neutral-900 to-neutral-950 border-neutral-700 border-[1.5px] rounded-xl p-2 xs:p-3 m-3 flex flex-col justify-start items-center">
-            <img src="/project_portfolio.png" alt="" className="w-full h-[14rem] block rounded-xl object-cover bg-black" />
-            <div className="p-2 text-xl">
-              Portfolio
-            </div>
-            <div className="p-2 text-center text-neutral-400 sm:h-20">
-              {t("portfolioDesc")}
-            </div>
-            <div className="py-2 flex gap-2 flex-wrap items-center justify-center">
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiNextdotjs className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Next.js</h1>
-              </span>
-              <span className=" text-white flex items-center justify-center p-1 px-2 rounded-full">
-                <SiTypescript className="inline-block w-6 h-6 text-white" />
-                <h1 className="inline-block px-2 text-lg">Typescript</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiTailwindcss className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">TailwindCSS</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiPostgresql className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Postgresql</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiDocker className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Docker</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiFramer className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Framer</h1>
-              </span>
-            </div>
-          </div>
-          <div className="w-[30rem] bg-gradient-to-bl from-neutral-900 to-neutral-950 border-neutral-700 border-[1.5px] rounded-xl p-2 xs:p-3 m-3 flex flex-col justify-start items-center">
-            <img src="/viceverse.png" alt="" className="w-full h-[14rem] block rounded-xl object-cover bg-black" />
-            <div className="p-2 text-xl">
-              Viceverse.cz
-            </div>
-            <div className="p-1 text-center text-neutral-400 sm:h-20">
-              {t("viceverseDesc")}
-            </div>
-            <div className="py-2 flex gap-2 flex-wrap items-center justify-center">
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiVuedotjs className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Vue.js</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiTypescript className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Typescript</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiTailwindcss className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">TailwindCSS</h1>
-              </span> 
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiFramer className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Framer</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiGit className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Git</h1>
-              </span>
-            </div>
-          </div>
-          <div className="w-[30rem] bg-gradient-to-bl from-neutral-900 to-neutral-950 border-neutral-700 border-[1.5px] rounded-xl p-2 xs:p-3 m-3 flex flex-col justify-start items-center">
-            <img src="/project_usb.png" alt="" className="w-full h-[14rem] block rounded-xl object-cover bg-black" />
-            <div className="p-2 text-xl">
-              Usb-Guard
-            </div>
-            <div className="p-1 text-center text-neutral-400 sm:h-20">
-              {t("usbGuardDesc")}
-            </div>
-            <div className="py-2 flex gap-2 flex-wrap items-center justify-center">
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiNextdotjs className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Next.js</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiRust className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Rust</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiTypescript className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Typescript</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiTailwindcss className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">TailwindCSS</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiPostgresql className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Postgresql</h1>
-              </span>
-              <span className=" flex items-center justify-center p-1 px-2 rounded-full">
-                <SiDocker className="inline-block w-6 h-6" />
-                <h1 className="inline-block px-2 text-lg">Docker</h1>
-              </span>
-            </div>
-          </div>
-        </div>
-      </main>
+       <WordList />
+       <Projects projects={data} />
       <div className="fixed left-10 bottom-0 hidden items-center md:flex">
         <div className="h-[200px] w-[1px] bg-neutral-300">
         </div>

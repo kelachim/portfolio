@@ -1,0 +1,52 @@
+[
+    {
+      "title": "Douc.info",
+      "description": "doucovaniDesc",
+      "image": "/project_doucovani.png",
+      "technologies": [
+        "Next.js",
+        "Typescript",
+        "TailwindCSS",
+        "Postgres",
+        "Supabase",
+        "Git"
+      ]
+    },
+    {
+      "title": "Portfolio",
+      "description": "portfolioDesc",
+      "image": "/project_portfolio.png",
+      "technologies": [
+        "Next.js",
+        "Typescript", 
+        "TailwindCSS",
+        "Postgresql",
+        "Framer"
+      ]
+    },
+    {
+      "title": "Viceverse.cz",
+      "description": "viceverseDesc",
+      "image": "/viceverse.png",
+      "technologies": [
+        "Vue.js",
+        "Typescript",
+        "TailwindCSS",
+        "Framer",
+        "Git"
+      ]
+    },
+    {
+      "title": "Usb-Guard",
+      "description": "usbGuardDesc",
+      "image": "/project_usb.png",
+      "technologies": [
+        "Next.js",
+        "Rust",
+        "Typescript",
+        "TailwindCSS",
+        "Postgresql",
+        "Docker"
+      ]
+    }
+  ]
