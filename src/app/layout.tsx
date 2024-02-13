@@ -1,11 +1,5 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond } from "next/font/google";
 import './globals.css'
-
-export const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: '300',
- }); 
 
 export const metadata: Metadata = {
   title: 'Create Next App',

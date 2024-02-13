@@ -5,7 +5,7 @@ import { Playfair_Display } from "next/font/google"
 import { useState, Fragment } from "react"
 import { motion } from "framer-motion"
 import { MdOutlineKeyboardArrowDown } from "react-icons/md"
-import { SiLinkedin, SiGithub, SiFramer, SiRust, SiTailwindcss, SiPostgresql, SiTypescript, SiGit, SiDocker, SiNextdotjs, SiSupabase, SiVuedotjs } from "react-icons/si"
+import { SiLinkedin, SiGithub } from "react-icons/si"
 import { IoMdArrowDropdown } from "react-icons/io";
 import i18n, { changeLanguage } from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
@@ -13,7 +13,7 @@ import { Listbox, Transition } from '@headlessui/react'
 import Link from "next/link"
 import data from "./projects.json"
 
-export const cormorant = Playfair_Display({
+const cormorant = Playfair_Display({
   subsets: ['latin'],
   weight: '400',
 });
