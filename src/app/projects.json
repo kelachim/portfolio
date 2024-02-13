@@ -2,7 +2,7 @@
     {
       "title": "Douc.info",
       "description": "doucovaniDesc",
-      "image": "/portfolio/project_doucovani.png",
+      "image": "/project_doucovani.png",
       "technologies": [
         "Next.js",
         "Typescript",
@@ -15,7 +15,7 @@
     {
       "title": "Portfolio",
       "description": "portfolioDesc",
-      "image": "/portfolio/project_portfolio.png",
+      "image": "/project_portfolio.png",
       "technologies": [
         "Next.js",
         "Typescript", 
@@ -27,7 +27,7 @@
     {
       "title": "Viceverse.cz",
       "description": "viceverseDesc",
-      "image": "/portfolio/viceverse.png",
+      "image": "/viceverse.png",
       "technologies": [
         "Vue.js",
         "Typescript",
@@ -39,7 +39,7 @@
     {
       "title": "Usb-Guard",
       "description": "usbGuardDesc",
-      "image": "/portfolio/project_usb.png",
+      "image": "/project_usb.png",
       "technologies": [
         "Next.js",
         "Rust",

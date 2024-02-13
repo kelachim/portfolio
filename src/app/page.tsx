@@ -133,7 +133,7 @@ export default function Home() {
               animate={{ opacity: 1 }}
               transition={{ ease: "easeOut", duration: 0.25, delay: 0.5 }}
             >
-              <img src="/portfolio/keyboard.png" alt="kb" className="select-none drag-none pointer-events-none" />
+              <img src="/keyboard.png" alt="kb" className="select-none drag-none pointer-events-none" />
             </motion.div>
           </div>
         </div>
