@@ -64,9 +64,9 @@ export default function Home() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ ease: "easeOut", duration: 1, delay: 0.5 }}
-        className='px-5 py-3 text-2xl cursor-pointer z-50 hover:[text-shadow:0px_0px_4px_var(--tw-shadow-color)] shadow-white text-white fixed p-5 top-0 text-sm right-32'
+        className='px-5 py-3 text-2xl cursor-pointer z-50 hover:[text-shadow:0px_0px_4px_var(--tw-shadow-color)] shadow-white text-white p-5 top-0 right-0 text-sm absolute'
         >
-          <div className="fixed w-32">
+          <div className="w-32">
             <Listbox value={selected} onChange={handleSelect}>
               <div className="relative mt-1">
                 <Listbox.Button className="relative w-full cursor-default rounded-lg bg-black py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
@@ -183,12 +183,12 @@ export default function Home() {
           </Link>
         </div>
       </div>
-      <div className="fixed top-2 left-2 flex items-center md:hidden p-2">
+      <div className="absolute top-2 left-2 flex items-center md:hidden p-2">
           <Link href={"https://www.linkedin.com/in/michal-hrb%C3%A1%C4%8Dek-0946a823b/"}>
-            <SiLinkedin  className="h-7 w-7 mx-1 bg-black" />
+            <SiLinkedin  className="h-7 w-7 mx-2 bg-black" />
           </Link>
           <Link href={"https://github.com/kelachim"}>
-            <SiGithub className="h-7 w-7 mx-1 bg-black" />
+            <SiGithub className="h-7 w-7 mx-2 bg-black" />
           </Link>
       </div>
     </div>
