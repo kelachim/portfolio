@@ -1,6 +1,4 @@
-import React, { useState } from "react";
 import { SiVuedotjs, SiTypescript, SiTailwindcss, SiFramer, SiGit, SiPostgresql, SiSupabase, SiNextdotjs, SiDocker, SiRust } from "react-icons/si";
-import { changeLanguage } from "i18next";
 import { useTranslation } from "react-i18next";
 
 interface Project {
@@ -15,7 +13,7 @@ interface ProjectsProps {
 }
 
 const TechnologyIcon = ({ tech }: { tech: string }) => {
-    const icons: { [key: string]: React.FC<{}> | undefined } = {
+    const icons: { [key: string]: React.FC<{ className?: string }> | undefined } = {
         "Next.js": SiNextdotjs,
         Typescript: SiTypescript,
         TailwindCSS: SiTailwindcss,
@@ -30,25 +28,14 @@ const TechnologyIcon = ({ tech }: { tech: string }) => {
 
     const IconComponent = icons[tech];
 
-    return IconComponent ? <IconComponent /> : null;
+    return IconComponent ? <span className=" flex items-center justify-center p-1 px-2 rounded-full">
+    <IconComponent className="inline-block w-5 h-5" />
+    <h1 className="inline-block px-2 text-lg">{tech}</h1>
+  </span> : null;
 };
 
 const Projects: React.FC<ProjectsProps> = ({ projects }) => {
-    const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
-
     const { t } = useTranslation();
-  
-    const languages = [
-      { code: "en", name: "English" },
-      { code: "cs", name: "Čeština" },
-    ];
-  
-    const handleLanguageChange = (lang: string) => {
-      setSelectedLanguage(lang);
-      changeLanguage(lang);
-    };
-  
-
   return (
     <main className="w-screen bg-black flex items-center flex-col text-center xl:text-left">
       <div className="text-[3rem] p-1 xs:p-12 block w-full lg:w-2/3">
