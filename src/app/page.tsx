@@ -64,7 +64,7 @@ export default function Home() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ ease: "easeOut", duration: 1, delay: 0.5 }}
-        className='px-5 py-3 text-2xl cursor-pointer z-50 hover:[text-shadow:0px_0px_4px_var(--tw-shadow-color)] shadow-white text-white p-5 top-0 right-0 text-sm absolute'
+        className='px-5 py-3 cursor-pointer z-50 hover:[text-shadow:0px_0px_4px_var(--tw-shadow-color)] shadow-white text-white p-5 top-0 right-0 text-sm absolute'
         >
           <div className="w-32">
             <Listbox value={selected} onChange={handleSelect}>

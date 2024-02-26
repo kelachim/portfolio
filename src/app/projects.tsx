@@ -1,6 +1,11 @@
 import { SiVuedotjs, SiTypescript, SiTailwindcss, SiFramer, SiGit, SiPostgresql, SiSupabase, SiNextdotjs, SiDocker, SiRust } from "react-icons/si";
 import { useTranslation } from "react-i18next";
+import { Playfair_Display } from "next/font/google";
 
+const cormorant = Playfair_Display({
+  subsets: ['latin'],
+  weight: '400',
+});
 interface Project {
   title: string;
   description: string;
@@ -38,7 +43,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
     const { t } = useTranslation();
   return (
     <main className="w-screen bg-black flex items-center flex-col text-center xl:text-left">
-      <div className="text-[3rem] p-1 xs:p-12 block w-full lg:w-2/3">
+      <div className="text-[2rem] p-1 xs:p-12 block w-full lg:w-2/3 italic">
         {t("myProjects")}
       </div>
       <div className="flex justify-center items-center flex-wrap w-full lg:w-10/12">
@@ -49,7 +54,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
             >
                 <img src={project.image} alt="" className="w-full h-[14rem] block rounded-xl object-cover bg-black" />
                 <div className="p-2 text-xl">{project.title}</div>
-                <div className="p-1 text-center text-neutral-400 sm:h-20">
+                <div className="p-1 text-center text-neutral-400 sm:h-24">
                 {t(project.description)}
                 </div>
                 <div className="py-2 flex gap-2 flex-wrap items-center justify-center">
