@@ -5,6 +5,8 @@
     "portfolioDesc": "Einfaches Portfolio, das Sie gerade ansehen. Ich habe es mit Technologien wie Framer Motion, React und Tailwindcss erstellt.",
     "viceverseDesc": "Website für unser Unternehmen, das Webdienste anbietet. Erstellt mit Vue und Tailwind CSS.",
     "usbGuardDesc": "In Rust geschriebene Anwendung mit Web-Oberfläche, die gegen Diebstahl computergestützter Peripheriegeräte kämpft und derzeit von einigen Schulen in der tschechischen Republik verwendet wird.",
+    "luhacoviceDesc": "Eine bescheidene Online-Präsenz für ein Spa und Hotel, umgesetzt mit Strapi und Nextjs.",
+    "skladDesc": "Lagerverwaltungssystem für ein Geschäft, das ihnen hilft, ihre Vorräte zu verwalten, entwickelt mit Nextjs.",
     "contact": "Weiter",
     "message": "Nachricht",
     "mail": "beispiel@email.com",

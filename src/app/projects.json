@@ -3,6 +3,7 @@
       "title": "Douc.info",
       "description": "doucovaniDesc",
       "image": "/project_doucovani.png",
+      "link": "https://douc.info/",
       "technologies": [
         "Next.js",
         "Typescript",
@@ -16,6 +17,7 @@
       "title": "Portfolio",
       "description": "portfolioDesc",
       "image": "/project_portfolio.png",
+      "link": "",
       "technologies": [
         "Next.js",
         "Typescript", 
@@ -28,6 +30,7 @@
       "title": "Viceverse.cz",
       "description": "viceverseDesc",
       "image": "/viceverse.png",
+      "link": "https://viceverse.cz/",
       "technologies": [
         "Vue.js",
         "Typescript",
@@ -40,9 +43,37 @@
       "title": "Usb-Guard",
       "description": "usbGuardDesc",
       "image": "/project_usb.png",
+      "link": "https://github.com/kelachim/usb-guard",
       "technologies": [
         "Next.js",
         "Rust",
+        "Typescript",
+        "TailwindCSS",
+        "Postgresql",
+        "Docker"
+      ]
+    },
+    {
+      "title": "Luhačovice Praha",
+      "description": "luhacoviceDesc",
+      "image": "/luhacovice.png",
+      "link": "https://luhacovicepraha.cz/cs",
+      "technologies": [
+        "Next.js",
+        "Strapi",
+        "Typescript",
+        "TailwindCSS",
+        "Postgresql",
+        "Docker"
+      ]
+    },
+    {
+      "title": "Sklad",
+      "description": "skladDesc",
+      "image": "/sklad.png",
+      "link": "https://github.com/ViceVerse-cz/",
+      "technologies": [
+        "Next.js",
         "Typescript",
         "TailwindCSS",
         "Postgresql",
